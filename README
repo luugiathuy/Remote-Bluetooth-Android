@@ -1,0 +1,4 @@
+Running Remote Server
+====================
+
+If you have to run the server in linux, then make sure you install the libbluetooth-dev package.
