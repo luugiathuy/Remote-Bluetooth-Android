@@ -1,5 +1,8 @@
 package com.luugiathuy.apps.remotebluetooth;
 
+import java.io.IOException;
+
+import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.DiscoveryAgent;
 import javax.bluetooth.LocalDevice;
 import javax.bluetooth.UUID;
@@ -36,10 +39,14 @@ public class WaitThread implements Runnable{
 			
             String url = "btspp://localhost:" + uuid.toString() + ";name=RemoteBluetooth";
             notifier = (StreamConnectionNotifier)Connector.open(url);
-		} catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
+        } catch (BluetoothStateException e) {
+        	System.out.println("Bluetooth is not turned on.");
+			e.printStackTrace();
+			return;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
 		
 		// waiting for connection
 		while(true) {
